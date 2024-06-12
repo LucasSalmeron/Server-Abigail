@@ -18,6 +18,20 @@ async function querySelect(query) {
       });
     });
 }
+async function querySelect(query, values) {
+
+
+  return new Promise((resolve, reject) => {
+    sql.query(connectionString, query,values, (err, rows) => {
+      if (err) {
+        reject(err);
+      } else {
+
+        resolve(rows);
+      }
+    });
+  });
+}
 
 function query(query){
 
@@ -32,6 +46,21 @@ function query(query){
         }
       });
     });
+}
+
+function query(query, values){
+
+
+  return new Promise((resolve, reject) => {
+    sql.query(connectionString, query, values,(err) => {
+      if (err) {
+        reject(err);
+      } else {
+
+        resolve(true);
+      }
+    });
+  });
 }
 
 
@@ -51,9 +80,32 @@ async buscarPacientes(){
 
 }
 
+async buscarPaciente(dni){
+
+  const values = [dni];
+
+  try {
+    const result = await querySelect(`SELECT * FROM Pacientes WHERE Dni = ?`, values);
+    return result;
+   }
+  catch (error) { return error; }
+}
+
 
 sumarPaciente(dni, nombre, telefono, email, direccion){
   return query(`INSERT INTO Pacientes (Dni,Nombre,Telefono,Email, Direccion) VALUES ('${dni}', '${nombre}', '${telefono}', '${email}', '${direccion}')`);
+}
+
+editarPaciente(dni, nombre, telefono, email, direccion){
+  const values = [nombre, telefono, email, direccion, dni];
+
+  return query(`UPDATE Pacientes SET Nombre = ?,Telefono = ? ,Email = ?, Direccion = ? WHERE Dni = ?`, values);
+}
+
+
+eliminarPaciente(dni){
+  const values = [dni];
+  return query(`DELETE FROM Pacientes WHERE Dni = ?`,values);
 }
 
 }
