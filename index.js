@@ -11,9 +11,8 @@ const server = http.createServer(async function (req, res) {
     res.setHeader("Access-Control-Allow-Origin", "*");
     res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
     res.setHeader("Access-Control-Allow-Headers", "Content-Type");
-    server.listen(port, host, () => {
-        console.log(`Server running at http://${host}:${port}/`)
-    })
+
+   
     
 
     //pacientes;
@@ -424,6 +423,14 @@ const server = http.createServer(async function (req, res) {
         });
     }
 
+
+
+
+    server.listen(port, host, () => {
+        console.log(`Server running at http://${host}:${port}/`)
+    })
+
+    
     res.end();
 })
 
