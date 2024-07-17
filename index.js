@@ -436,17 +436,7 @@ const server = http.createServer(async function (req, res) {
 
 server.listen(port, host, () => {
         console.log(`Server running at http://${host}:${port}/`)
-        const d = {
-            Id:1,
-            Fecha: '2022-01-01',
-            Presupuesto: 1001,
-            Nombre: 'Tratamiento 1',
-            Descripcion: 'Tratamiento 1',
-            Paciente: '12'
-        }
-        const resultado =  sql.editarTratamiento(d.Id, d.Fecha, d.Presupuesto, d.Nombre, d.Descripcion, d.Paciente);
-        console.log(resultado);
-        console.log(sql.buscarTratamientos());
+        
     })
 
 
