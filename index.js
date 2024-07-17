@@ -2,6 +2,7 @@ const sqlHelp = require('./sqlHelp.js');
 const qs = require('querystring');
 const sql = new sqlHelp();
 const http = require("http");
+const { watch } = require('fs');
 const host = "localhost";
 const port = 3000;
 const server = http.createServer(async function (req, res) {
@@ -425,14 +426,28 @@ const server = http.createServer(async function (req, res) {
 
 
 
-
-    server.listen(port, host, () => {
-        console.log(`Server running at http://${host}:${port}/`)
-    })
-
     
+
+
     res.end();
 })
+
+
+
+server.listen(port, host, () => {
+        console.log(`Server running at http://${host}:${port}/`)
+        const d = {
+            Id:1,
+            Fecha: '2022-01-01',
+            Presupuesto: 1001,
+            Nombre: 'Tratamiento 1',
+            Descripcion: 'Tratamiento 1',
+            Paciente: '12'
+        }
+        const resultado =  sql.editarTratamiento(d.Id, d.Fecha, d.Presupuesto, d.Nombre, d.Descripcion, d.Paciente);
+        console.log(resultado);
+        console.log(sql.buscarTratamientos());
+    })
 
 
 
